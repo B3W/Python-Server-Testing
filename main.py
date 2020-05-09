@@ -1,7 +1,7 @@
 import socket
 # import singlethreaded_server as server
-import multithreaded_server as server
-# import select_server as server
+# import multithreaded_server as server
+import select_server as server
 import time
 import threading
 

@@ -22,11 +22,11 @@ def thread_logic(tid, sock, addr):
     if buf:
         # Something was received
         print(f"STHREAD{tid}: Received dummy data [{buf}]")
+        time.sleep(0.25)  # Add in processing delay
 
         #  Send response
         sock.sendto(b'101', addr)
 
-    time.sleep(0.5)  # Add in processing delay
     sock.close()
     print(f"STHREAD{tid}: Finished")
 
@@ -52,8 +52,6 @@ def server_logic():
 
     for t in thread_list:
         t.join()
-
-    print("SERVER: Server stopped")
 
 
 def init(port):
@@ -93,3 +91,6 @@ def start():
 def signal_stop():
     global _g_done
     _g_done = True
+
+    _g_server_thread.join()  # Wait to return until server is closed
+    print("SERVER: Thread stopped")
